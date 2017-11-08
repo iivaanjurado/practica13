@@ -41,7 +41,7 @@
                         <div class='fieldcontain required'>
                             <label for='nombre'>Nombre
                                 <span class='required-indicator'>*</span>
-                            </label><input type="text" class="form-control" name="nombre" value="" required="" id="nombre" />
+                            </label><input type="text" class="form-control" name="nombre" value="${categoria.nombre}" required="" id="nombre" />
                         </div>
                     </fieldset>
                     <fieldset class="buttons">

@@ -46,7 +46,8 @@ class DepartamentoController {
     }
 
     def edit(Long id) {
-        respond departamentoService.get(id)
+        def map = ['departamento': departamentoService.get(id)]
+        respond map
     }
 
     def update(Departamento departamento) {

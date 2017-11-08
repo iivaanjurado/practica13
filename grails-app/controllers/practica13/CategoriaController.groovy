@@ -46,7 +46,9 @@ class CategoriaController {
     }
 
     def edit(Long id) {
-        respond categoriaService.get(id)
+
+        def map=['categoria': categoriaService.get(id)]
+        respond map
     }
 
     def update(Categoria categoria) {

@@ -1,11 +1,13 @@
 package practica13
 
+import grails.converters.JSON
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
 class ContactoController {
 
     ContactoService contactoService
+    DepartamentoContactoService departamentoContactoService
 
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -20,7 +22,8 @@ class ContactoController {
     }
 
     def create() {
-        respond new Contacto(params)
+        def map = ['categorias': Categoria.findAll(), 'departamentos': Departamento.findAll()]
+          respond map
     }
 
     def save(Contacto contacto) {
@@ -36,6 +39,15 @@ class ContactoController {
             return
         }
 
+        def lista = params.departamento.toList()
+
+        for (String x: lista){
+
+            println(x)
+            def dep = Departamento.findById(Long.parseLong(x))
+            DepartamentoContacto depcon = new DepartamentoContacto(contacto:contacto, departamento: dep).save()
+        }
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'contacto.label', default: 'Contacto'), contacto.id])
@@ -46,7 +58,12 @@ class ContactoController {
     }
 
     def edit(Long id) {
-        respond contactoService.get(id)
+
+        def con = contactoService.get(id)
+        println(DepartamentoContacto.findAllByContacto(con) as JSON)
+
+        def map = ['contacto': contactoService.get(id), 'categorias': Categoria.findAll(), 'departamentos': Departamento.findAll(), 'departamentosSeleccionados': DepartamentoContacto.findByContacto(con) as JSON ]
+        respond map
     }
 
     def update(Contacto contacto) {
@@ -60,6 +77,21 @@ class ContactoController {
         } catch (ValidationException e) {
             respond contacto.errors, view:'edit'
             return
+        }
+
+        def lista = params.departamento.toList()
+
+        def depcontacts = DepartamentoContacto.findAllByContacto(contacto);
+
+        depcontacts.each {
+
+            departamentoContactoService.delete(it.id)
+        }
+        for (String x: lista){
+
+            println(x)
+            def dep = Departamento.findById(Long.parseLong(x))
+            DepartamentoContacto depcon = new DepartamentoContacto(contacto:contacto, departamento: dep).save()
         }
 
         request.withFormat {

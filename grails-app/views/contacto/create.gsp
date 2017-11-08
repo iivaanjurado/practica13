@@ -33,7 +33,7 @@
                             </g:eachError>
                         </ul>
                     </g:hasErrors>
-                    <g:form resource="${this.contacto}" method="POST">
+                    <g:form controller="contacto" action="save" method="POST">
 
 
 
@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <label for='email'>Email
                                     <span class='required-indicator'>*</span>
-                                </label><input type="text" name="email" class="form-control" value="" required="" id="email" />
+                                </label><input type="text" name="email" class="form-control" required="" id="email" />
                             </div>
                         </div>
 
@@ -65,8 +65,29 @@
                             <div class="form-group">
                                 <label for='categoria'>Categoria
                                     <span class='required-indicator'>*</span>
-                                </label><select name="categoria.id"  class="form-control" required="" id="categoria" >
+                                </label>
+                                <select name="categoria.id"  class="form-control" required="" id="categoria" >
+                                <g:each in ="${categorias}" var = "x">
+
+                                    <option value="${x.id}">${x.nombre}</option>
+                                </g:each>
+
                             </select>
+                            </div>
+                        </div>
+
+                        <div class='fieldcontain required'>
+                            <div class="form-group">
+                                <label for='categoria'>Departamento
+                                    <span class='required-indicator'>*</span>
+                                </label>
+                                <select name="departamento"  class="form-control" required="" id="departamento" multiple >
+                                    <g:each in ="${departamentos}" var = "x">
+
+                                        <option value="${x.id}">${x.nombre}</option>
+                                    </g:each>
+
+                                </select>
                             </div>
                         </div>
 
@@ -115,6 +136,9 @@
     </div>
 </div>
 <asset:javascript src="application.js"/>
+
+
 </body>
+
 
 </html>

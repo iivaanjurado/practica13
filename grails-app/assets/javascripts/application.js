@@ -5,14 +5,8 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better
 // to create separate JavaScript files as needed.
 //
-//= require jquery
-//= require bootstrap.bundle
-//= require jquery.dataTables
-//= require dataTables.bootstrap4
-//= require sb-admin
-//= require sb-admin-datatables
-//= require jquery.easing
-//= require_tree .
+//= require jquery-2.2.0.min
+//= require bootstrap.js
 //= require_self
 //
 
@@ -25,3 +19,6 @@ if (typeof jQuery !== 'undefined') {
         });
     })(jQuery);
 }
+
+
+

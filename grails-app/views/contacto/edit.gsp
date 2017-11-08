@@ -41,7 +41,7 @@
                         <div class='fieldcontain required'>
                             <label for='email'>Email
                                 <span class='required-indicator'>*</span>
-                            </label><input type="text" class="form-control" name="email" value="" required="" id="email" />
+                            </label><input type="text" class="form-control" name="email" value="${contacto.email}" required="" id="email" />
                         </div>
                         </div>
 
@@ -49,7 +49,7 @@
                             <div class='fieldcontain required'>
                         <label for='telefonoMovil'>Telefono Movil
                             <span class='required-indicator'>*</span>
-                        </label><input type="text" name="telefonoMovil" class="form-control" value="" required="" id="telefonoMovil" />
+                        </label><input type="text" name="telefonoMovil" class="form-control"  value="${contacto.telefonoMovil}" required="" id="telefonoMovil" />
                     </div>
                         </div>
 
@@ -57,7 +57,7 @@
                             <div class='fieldcontain required'>
                         <label for='puestoTrabajo'>Puesto Trabajo
                             <span class='required-indicator'>*</span>
-                        </label><input type="text" name="puestoTrabajo" class="form-control" value="" required="" id="puestoTrabajo" />
+                        </label><input type="text" name="puestoTrabajo" class="form-control"  value="${contacto.puestoTrabajo}" required="" id="puestoTrabajo" />
                     </div>
                         </div>
 
@@ -65,17 +65,36 @@
                             <div class='fieldcontain required'>
                         <label for='categoria'>Categoria
                             <span class='required-indicator'>*</span>
-                        </label><select name="categoria.id" class="form-control" required="" id="categoria" >
+                        </label>
+                                <select name="categoria.id" class="form-control" required="" id="categoria" >
+                                <g:each in ="${categorias}" var = "x">
 
+                                    <option value="${x.id}">${x.nombre}</option>
+                                </g:each>
                         </select>
                     </div>
+                        </div>
+
+                        <div class='fieldcontain required'>
+                            <div class="form-group">
+                                <label for='categoria'>Departamento
+                                    <span class='required-indicator'>*</span>
+                                </label>
+                                <select name="departamento"  class="form-control" required="" id="departamento" multiple >
+                                    <g:each in ="${departamentos}" var = "x">
+
+                                        <option value="${x.id}">${x.nombre}</option>
+                                    </g:each>
+
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <div class='fieldcontain required'>
                         <label for='telefono'>Telefono
                             <span class='required-indicator'>*</span>
-                        </label><input type="text" name="telefono" class="form-control" value="" required="" id="telefono" />
+                        </label><input type="text" name="telefono" class="form-control"  value="${contacto.telefono}" required="" id="telefono" />
                     </div>
                         </div>
 
@@ -83,7 +102,7 @@
                             <div class='fieldcontain required'>
                         <label for='apellido'>Apellido
                             <span class='required-indicator'>*</span>
-                        </label><input type="text" name="apellido"  class="form-control" value="" required="" id="apellido" />
+                        </label><input type="text" name="apellido"  class="form-control"  value="${contacto.apellido}" required="" id="apellido" />
                     </div>
                         </div>
 
@@ -92,7 +111,7 @@
                             <div class='fieldcontain required'>
                         <label for='nombre'>Nombre
                             <span class='required-indicator'>*</span>
-                        </label><input type="text" class="form-control" name="nombre" value="" required="" id="nombre" />
+                        </label><input type="text" class="form-control" name="nombre"  value="${contacto.nombre}" required="" id="nombre" />
                     </div>
                         </div>
 
@@ -101,7 +120,7 @@
                             <div class='fieldcontain required'>
                         <label for='direccion'>Direccion
                             <span class='required-indicator'>*</span>
-                        </label><input type="text" name="direccion" class="form-control" value="" required="" id="direccion" />
+                        </label><input type="text" name="direccion" class="form-control" value="${contacto.direccion}" required="" id="direccion" />
                     </div>
                         </div>
 
@@ -120,6 +139,18 @@
     </div>
 </div>
 <asset:javascript src="application.js"/>
+
+<g:javascript>
+    $( document ).ready(function() {
+       var departamentosSeleccionados = "${departamentosSeleccionados}";
+
+       var arreglo = eval(departamentosSeleccionados);
+
+    $('#departamento').select2('data', departamentosSeleccionados);
+       console.log(departamentosSeleccionados);
+    });
+
+</g:javascript>
 </body>
 
 </html>

@@ -33,8 +33,8 @@
                 <a href="#list-contacto" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
                 <div class="nav" role="navigation">
                     <ul>
-                        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                        <li><g:link class="create" action="create"><g:message code="Crear Contacto" args="[entityName]" /></g:link></li>
+                        <li><a  href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                        <li><g:link  action="create"><g:message code="Crear Contacto" args="[entityName]" /></g:link></li>
                     </ul>
                 </div>
                 <div id="list-contacto" class="content scaffold-list" role="main">

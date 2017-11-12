@@ -1,6 +1,7 @@
 package practica13
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
 import javax.xml.bind.SchemaOutputResolver
@@ -16,20 +17,24 @@ class ContactoController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured('ROLE_ADMIN')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond contactoService.list(params), model:[contactoCount: contactoService.count()]
     }
 
+    @Secured('ROLE_ADMIN')
     def show(Long id) {
         respond contactoService.get(id)
     }
 
+    @Secured('ROLE_ADMIN')
     def create() {
         def map = ['categorias': Categoria.findAll(), 'departamentos': Departamento.findAll()]
           respond map
     }
 
+    @Secured('ROLE_ADMIN')
     def graficos(){
 
         def departamentos = Departamento.findAll()
@@ -47,14 +52,14 @@ class ContactoController {
 
     }
 
-
+    @Secured('ROLE_ADMIN')
     def seleccionar(){
 
         def map = ['departamentos': Departamento.findAll()]
         respond map
     }
 
-
+    @Secured('ROLE_ADMIN')
     def buscar(){
 
         params.get("departamento")
@@ -68,7 +73,7 @@ class ContactoController {
 
     }
 
-
+    @Secured('ROLE_ADMIN')
     def save(Contacto contacto) {
         if (contacto == null) {
             notFound()
@@ -100,6 +105,7 @@ class ContactoController {
         }
     }
 
+    @Secured('ROLE_ADMIN')
     def edit(Long id) {
 
         def con = contactoService.get(id)
@@ -109,6 +115,8 @@ class ContactoController {
         respond map
     }
 
+
+    @Secured('ROLE_ADMIN')
     def update(Contacto contacto) {
         if (contacto == null) {
             notFound()
@@ -146,6 +154,8 @@ class ContactoController {
         }
     }
 
+
+    @Secured('ROLE_ADMIN')
     def delete(Long id) {
         if (id == null) {
             notFound()

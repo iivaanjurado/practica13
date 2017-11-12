@@ -7,6 +7,7 @@ class Categoria {
     Date dateCreated
     Date lastUpdated
     static constraints = {
+        nombre unique: true
     }
 
 

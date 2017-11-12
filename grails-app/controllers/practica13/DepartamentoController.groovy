@@ -1,5 +1,6 @@
 package practica13
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -10,18 +11,25 @@ class DepartamentoController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+    @Secured('ROLE_ADMIN')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond departamentoService.list(params), model:[departamentoCount: departamentoService.count()]
     }
 
+    @Secured('ROLE_ADMIN')
     def show(Long id) {
         respond departamentoService.get(id)
     }
 
+
+    @Secured('ROLE_ADMIN')
     def create() {
         respond new Departamento(params)
     }
+
+    @Secured('ROLE_ADMIN')
 
     def save(Departamento departamento) {
         if (departamento == null) {
@@ -45,10 +53,14 @@ class DepartamentoController {
         }
     }
 
+    @Secured('ROLE_ADMIN')
+
     def edit(Long id) {
         def map = ['departamento': departamentoService.get(id)]
         respond map
     }
+
+    @Secured('ROLE_ADMIN')
 
     def update(Departamento departamento) {
         if (departamento == null) {
@@ -72,6 +84,8 @@ class DepartamentoController {
         }
     }
 
+
+    @Secured('ROLE_ADMIN')
     def delete(Long id) {
         if (id == null) {
             notFound()

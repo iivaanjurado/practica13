@@ -7,6 +7,7 @@ class Departamento {
     Date lastUpdated
 
     static constraints = {
+        nombre unique: true
     }
 
     @Override

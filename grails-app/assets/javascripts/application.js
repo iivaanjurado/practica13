@@ -7,6 +7,7 @@
 //
 //= require jquery-2.2.0.min
 //= require bootstrap.js
+//= require canvasjs.min
 //= require_self
 //
 

@@ -2,11 +2,15 @@ package practica13
 
 import grails.converters.JSON
 import grails.validation.ValidationException
+
+import javax.xml.bind.SchemaOutputResolver
+
 import static org.springframework.http.HttpStatus.*
 
 class ContactoController {
 
     ContactoService contactoService
+    CategoriaService categoriaService
     DepartamentoContactoService departamentoContactoService
 
 
@@ -25,6 +29,45 @@ class ContactoController {
         def map = ['categorias': Categoria.findAll(), 'departamentos': Departamento.findAll()]
           respond map
     }
+
+    def graficos(){
+
+        def departamentos = Departamento.findAll()
+
+        def map = [:]
+
+        departamentos.each {
+
+            map.put(it.nombre,  DepartamentoContacto.findAllByDepartamento(it).size() )
+        }
+
+        def mapa = ["datos": map]
+
+        respond mapa
+
+    }
+
+
+    def seleccionar(){
+
+        def map = ['departamentos': Departamento.findAll()]
+        respond map
+    }
+
+
+    def buscar(){
+
+        params.get("departamento")
+        def depart = Departamento.findById(params.get("departamento"))
+
+
+        def contactosDepartamento = DepartamentoContacto.findAllByDepartamento(depart)
+
+       def map = ["contactos": contactosDepartamento]
+        respond map
+
+    }
+
 
     def save(Contacto contacto) {
         if (contacto == null) {
